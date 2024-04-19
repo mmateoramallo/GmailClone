@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cambio de Idioma</title>
+  <style>
+    /* Estilos para los botones */
+    .dropbtn {
+      width: auto; /* Ancho adaptable al contenido */
+      padding: 10px;
+      cursor: pointer;
+    }
+    
+    /* Estilos para el contenido del menú desplegable */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .dropdown-content a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+    
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+    
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="titulo">¡Hola Mundo!</h1>
+  
+  <!-- Botón que despliega las opciones de idioma -->
+  <div class="dropdown">
+    <button onclick="toggleDropdown()" class="dropbtn">Seleccionar Idioma</button>
+    <div id="dropdownContent" class="dropdown-content">
+      <a href="#" onclick="cambiarIdioma('es')">Español</a>
+      <a href="#" onclick="cambiarIdioma('en')">Inglés</a>
+      <!-- Agregar más opciones de idioma según sea necesario -->
+    </div>
+  </div>
+  
+  <script>
+    // Función para cambiar el idioma de la página
+    function cambiarIdioma(idioma) {
+      // Definir los textos según el idioma seleccionado
+      const textos = {
+        'es': {
+          'titulo': '¡Hola Mundo!'
+          // Agregar más textos en español si es necesario
+        },
+        'en': {
+          'titulo': 'Hello World!'
+          // Agregar más textos en inglés si es necesario
+        }
+        // Agregar más idiomas y sus respectivos textos aquí
+      };
+      
+      // Obtener todos los elementos del DOM que se quieren traducir
+      const elementos = document.querySelectorAll('[data-i18n]');
+      
+      // Iterar sobre los elementos y cambiar su texto según el idioma seleccionado
+      elementos.forEach(elemento => {
+        const clave = elemento.getAttribute('data-i18n');
+        if (textos[idioma][clave]) {
+          elemento.textContent = textos[idioma][clave];
+        }
+      });
+    }
+    
+    // Función para mostrar/ocultar las opciones de idioma
+    function toggleDropdown() {
+      document.getElementById("dropdownContent").classList.toggle("show");
+    }
+    
+    // Cerrar el menú desplegable si se hace clic fuera de él
+    window.onclick = function(event) {
+      if (!event.target.matches('.dropbtn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        var i;
+        for (i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+    
+    // Llamar a la función cambiarIdioma para establecer el idioma inicial
+    cambiarIdioma('es');
+  </script>
+</body>
+</html>
